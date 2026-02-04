@@ -6,8 +6,8 @@ import LoadingIndicator from "astro-loading-indicator/component"
 
 const { title, description } = Astro.props;
 
-const defaultTitle = "Nikola Tesla";
-const defaultDescription = "Nikola Tesla was a Serbian-American inventor, electrical engineer, mechanical engineer, and futurist who is best known for his contributions to the design of the modern alternating current (AC) electricity supply system.";
+const defaultTitle = "Naoya Iwamoto - Portfolio";
+const defaultDescription = "Portfolio website of Naoya Iwamoto, a front-end and back-end developer specializing in Next.js, Astro, and Go.";
 ---
 
 <!doctype html>
@@ -20,19 +20,19 @@ const defaultDescription = "Nikola Tesla was a Serbian-American inventor, electr
 		<title>{title ?? defaultTitle}</title>
 		<meta name="description" content={description ?? defaultDescription} />
 
-		<meta property="og:url" content="https://nikola.fluidinterfaces.com/" />
+		<meta property="og:url" content="https://roro.dev/" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={defaultTitle} />
 		<meta property="og:description" content={defaultDescription} />
-		<meta property="og:image" content="/social-image.jpg" />
+		<meta property="og:image" content="/social-image.png" />
 
 		<!-- Twitter Meta Tags -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta property="twitter:domain" content="nikola.fluidinterfaces.com" />
-		<meta property="twitter:url" content="https://nikola.fluidinterfaces.com/" />
+		<meta property="twitter:domain" content="roro.dev" />
+		<meta property="twitter:url" content="https://roru.dev" />
 		<meta name="twitter:title" content={defaultTitle} />
 		<meta name="twitter:description" content={defaultDescription} />
-		<meta name="twitter:image" content="/social-image.jpg" />
+		<meta name="twitter:image" content="/social-image.png" />
 
 		<Font cssVariable="--font-geist" preload />
 		<ClientRouter />

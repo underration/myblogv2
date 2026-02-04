@@ -36,18 +36,22 @@ const relatedArticles = allArticles.filter(
 
 <InfoLayout title={article.data.title} frontmatter={article.data}>
     <section class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
+        <header class="mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-zinc-50">
+                {article.data.title}
+            </h1>
+            <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+                <span class="px-2 py-1 bg-zinc-800 rounded text-zinc-300">
+                    {article.data.category}
+                </span>
+                <span>
+                    {formatDate(article.data.pubDate)}
+                </span>
+            </div>
+        </header>
         <Prose>
             <Content />
         </Prose>
-
-        <p class="my-4 text-sm italic text-zinc-300">
-            This is an excerpt from {`${article.data.author}'s`}
-            <a href={article.data.originalLink} target="_blank" class="underline underline-offset-4 decoration-zinc-100 hover:decoration-white hover:text-white">
-                {article.data.title}
-            </a>
-            article. I highly recommend you give it a read!
-        </p>
-
         {
             relatedArticles.length > 0 && (
                 <div>

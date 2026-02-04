@@ -1,27 +1,60 @@
 ---
-import { Image } from 'astro:assets';
+import { Dithering } from "@paper-design/shaders-react";
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
-import ACGenerator from "../assets/ac-generator.jpg";
-import FluidPropulsion from "../assets/fluid-propulsion.jpg";
-import ElectricMotor from "../assets/electro-magnetic-motor.jpg";
+import WarpBackground from "../components/warp-background.tsx";
 
 const projects = [
      {
-          title: "AC Generator",
-          description: "Transform mechanical energy into alternating current, powering the modern electric grid",
-          image: ACGenerator
+          id: "1",
+          title: "ポートフォリオサイト",
+          category: ["フロントエンド"],
+          description: "過去に行ってきたことをまとめたポートフォリオです。",
+          technologies: ["Next.js", "Tailwind CSS", "TypeScript", "vercel"],
+          period: "2025年4月 - 現在",
+          link: "https://github.com/underration/myblogv2",
      },
      {
-          title: "Fluid Propulsion",
-          description: "Bladeless turbine using fluid dynamics for efficient, low-friction propulsion.",
-          image: FluidPropulsion
+          id: "2",
+          title: "大阪公立大学交響楽団公式サイト",
+          category: ["フロントエンド"],
+          description: "大阪公立大学交響楽団の公式サイトを制作しました。",
+          technologies: ["Next.js", "Tailwind CSS", "TypeScript", "FireStore", "Netlify", "Figma"],
+          period: "2025年2月 - 2025年3月",
+          image: "/images/omuso.png",
+          link: "https://omuso.jp",
      },
      {
-          title: "Electro-Magnetic Motor",
-          description: "Harness alternating current to produce smooth, efficient rotary motion.",
-          image: ElectricMotor
-     }];
+          id: "3",
+          title: "ビーコンセンシングによる滞在空間同定手法",
+          category: ["研究"],
+          description: "BLE(Bluetooth Low Energy)ビーコンを利用して、スマートフォンの空間同定手法を研究しました。",
+          technologies: ["Flutter", "Bluetooth Low Energy"],
+          period: "2024年9月 - 2025年2月",
+          image: "",
+          link: "https://www.docswell.com/s/naoya_iwamoto/ZYD6LD-2025-04-09-150451",
+     },
+     {
+          id: "4",
+          title: "Michel Becquet's recordings 86",
+          category: ["フロントエンド"],
+          description: "知人より依頼を受けて制作したサイトです。",
+          technologies: ["Next.js", "Tailwind CSS", "TypeScript", "Vercel"],
+          period: "2024年8月 - 2024年9月",
+          image: "/images/bequet.png",
+          link: "https://www.posauneee.net/",
+     },
+     {
+          id: "5",
+          title: "ImageToPDF",
+          category: ["Python"],
+          description: "画像をPDFに変換するPythonスクリプトです。",
+          technologies: ["Python", "flet"],
+          period: "2024年10月 - 2024年11月",
+          image: "",
+          link: "https://github.com/underration/ImageToPDF",
+     },
+];
 ---
 
 <InfoLayout>
@@ -31,11 +64,36 @@ const projects = [
           <ul class="mt-4 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 sm:gap-8">
                {projects.map((project) => (
                     <li>
-                         <Image src={project.image} alt={project.title} class="aspect-[1/1.33] object-center object-cover rounded-lg shadow-lg mb-4 sm:mb-0 sm:mr-4" />
-                         <div class="p-1 sm:p-2">
-                              <h2 class="text-base text-zinc-100">{project.title}</h2>
-                              <p class="text-sm text-zinc-400 text-balance">{project.description}</p>
-                         </div>
+                         <a href={project.link} target="_blank" rel="noopener noreferrer" class="block group">
+                              {project.image ? (
+                                   <img src={project.image} alt={project.title} class="aspect-[1/1.33] object-center object-cover rounded-lg shadow-lg mb-4 sm:mb-0 sm:mr-4 group-hover:opacity-80 transition-opacity" />
+                              ) : (
+                                   <div class="aspect-[1/1.33] rounded-lg shadow-lg mb-4 sm:mb-0 sm:mr-4 overflow-hidden">
+                                        <WarpBackground
+                                            colors={["#7300ff", "#eba8ff", "#00bfff"]}
+                                            colorBack="#18181b"
+                                            speed={0.6}
+                                            softness={1}
+                                            intensity={1}
+                                            noise={1}
+                                            shape="sphere"
+                                            speed={1}
+                                            scale={1}
+                                            client:load
+                                        />
+                                   </div>
+                              )}
+                              <div class="p-1 sm:p-2">
+                                   <h2 class="text-base text-zinc-100 group-hover:text-zinc-300 transition-colors">{project.title}</h2>
+                                   <p class="text-sm text-zinc-400 text-balance">{project.description}</p>
+                                   <p class="text-xs text-zinc-500 mt-1">{project.period}</p>
+                                   <div class="flex flex-wrap gap-1 mt-2">
+                                        {project.technologies.map((tech) => (
+                                             <span class="text-xs bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">{tech}</span>
+                                        ))}
+                                   </div>
+                              </div>
+                         </a>
                     </li>
                ))}
           </ul>
