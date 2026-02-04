@@ -15,7 +15,7 @@ const defaultDescription = "Portfolio website of Naoya Iwamoto, a front-end and 
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title ?? defaultTitle}</title>
 		<meta name="description" content={description ?? defaultDescription} />
@@ -35,6 +35,7 @@ const defaultDescription = "Portfolio website of Naoya Iwamoto, a front-end and 
 		<meta name="twitter:image" content="/social-image.png" />
 
 		<Font cssVariable="--font-geist" preload />
+		<Font cssVariable="--font-noto-sans-jp" preload />
 		<ClientRouter />
 		<LoadingIndicator color="#f4f4f5" height="2px" />
 

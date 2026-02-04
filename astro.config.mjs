@@ -21,6 +21,11 @@ export default defineConfig({
       name: "Geist",
       cssVariable: "--font-geist",
       fallbacks: ["Inter", "sans-serif"],
+    }, {
+      provider: fontProviders.google(),
+      name: "Noto Sans JP",
+      cssVariable: "--font-noto-sans-jp",
+      fallbacks: ["sans-serif"],
     }]
   },
 
