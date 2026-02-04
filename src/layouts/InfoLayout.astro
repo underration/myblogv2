@@ -10,8 +10,9 @@ const pathname = Astro.url.pathname;
 
 <RootLayout title={title} description={description}>
 	<div class="flex relative gap-4 w-full max-w-screen-xl">
-		<nav class="relative w-4 md:min-w-2xs xl:min-w-sm sm:min-h-screen sm:pb-4">
-			<div class="w-full h-full max-sm:w-4 md:max-w-2xs xl:max-w-sm fixed -z-10   overflow-hidden">
+		<!-- モバイルでは上部に配置、デスクトップではサイドバーとして配置 -->
+		<nav class="hidden sm:block relative md:min-w-2xs xl:min-w-sm sm:min-h-screen sm:pb-4">
+			<div class="w-full h-full md:max-w-2xs xl:max-w-sm fixed -z-10 overflow-hidden">
 				<WarpBackground
 					colors={["#7300ff", "#eba8ff", "#00bfff"]}
 					colorBack="#18181b"
@@ -27,11 +28,25 @@ const pathname = Astro.url.pathname;
 			</div>
 		</nav>
 
-		<main class="relative"  >
+		<main class="relative w-full">
+			<!-- モバイル用のWarpBackground（上部に小さく表示） -->
+			<div class="sm:hidden h-24 w-full overflow-hidden -mx-4 mb-4" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw;">
+				<WarpBackground
+					colors={["#7300ff", "#eba8ff", "#00bfff"]}
+					colorBack="#18181b"
+					speed={0.6}
+					softness={1}
+					intensity={1}
+					noise={1}
+					shape="sphere"
+					speed={1}
+					scale={1}
+					client:load
+				/>
+			</div>
 			<slot />
 			<Footer />
 		</main>
-
 
 	</div>
 </RootLayout>
