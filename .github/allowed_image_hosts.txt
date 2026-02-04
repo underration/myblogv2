@@ -1,0 +1,14 @@
+# 画像ダウンロードを許可するドメイン（1行1ドメイン）
+# コメント行は # で始める
+
+# GitHub関連
+github.com
+user-attachments
+githubusercontent.com
+avatars.githubusercontent.com
+raw.githubusercontent.com
+
+# Substack CDN
+substackcdn.com
+substack-post-media.s3.amazonaws.com
+

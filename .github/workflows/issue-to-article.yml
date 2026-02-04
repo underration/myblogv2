@@ -1,0 +1,61 @@
+name: Issue to Article
+
+on:
+  issues:
+    types: [closed, labeled]
+
+# 同時実行を抑止して、コミット衝突を避ける
+concurrency:
+  group: issue-to-article
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  convert:
+    # publishラベルが付いていて、Issueがcloseされている場合のみ実行
+    if: |
+      contains(github.event.issue.labels.*.name, 'publish') &&
+      github.event.issue.state == 'closed' &&
+      (github.event.issue.author_association == 'OWNER' ||
+       github.event.issue.author_association == 'MEMBER' ||
+       github.event.issue.author_association == 'COLLABORATOR')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run conversion script
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/issue_to_article.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/articles/ public/images/articles/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📝 Add/Update article from issue #${{ github.event.issue.number }}"
+            git push
+          fi
+

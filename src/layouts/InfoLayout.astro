@@ -1,0 +1,37 @@
+---
+import RootLayout from "./RootLayout.astro";
+import Footer from "../components/footer.astro";
+import WarpBackground from "../components/warp-background";
+
+const { title, description } = Astro.props;
+
+const pathname = Astro.url.pathname;
+---
+
+<RootLayout title={title} description={description}>
+	<div class="flex relative gap-4 w-full max-w-screen-xl">
+		<nav class="relative w-4 md:min-w-2xs xl:min-w-sm sm:min-h-screen sm:pb-4">
+			<div class="w-full h-full max-sm:w-4 md:max-w-2xs xl:max-w-sm fixed -z-10   overflow-hidden">
+				<WarpBackground
+					colors={["#7300ff", "#eba8ff", "#00bfff"]}
+					colorBack="#18181b"
+					speed={0.6}
+					softness={1}
+					intensity={1}
+					noise={1}
+					shape="dots"
+					speed={1}
+					scale={3}
+					client:load
+				/>
+			</div>
+		</nav>
+
+		<main class="relative"  >
+			<slot />
+			<Footer />
+		</main>
+
+
+	</div>
+</RootLayout>
